@@ -5,7 +5,7 @@
         @csrf
         <div class="form-group">
           <label for="username-register" class="text-muted mb-1"><small>Username</small></label>
-          <input value="{{old('username')}}" ="username" id="username-register" class="form-control" type="text" placeholder="Pick a username" autocomplete="off" />
+          <input value="{{old('username')}}" name="username" id="username-register" class="form-control" type="text" placeholder="Pick a username" autocomplete="off" />
           @error('username')
             <p class='m-0 small alert alert-danger shadow-sm'>{{$message}}</p>
           @enderror

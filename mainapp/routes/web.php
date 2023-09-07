@@ -14,12 +14,12 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-});
+Route::get('/', [UserController::class, 'showCorrectHomepage']);
 
 Route::get('/register', function () {
     return view('register');
 });
 
 Route::post('/register-user', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout']);

@@ -9,6 +9,34 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+
+    public function logout()
+    {
+        auth()->logout();
+        return redirect('/')->with('success', ' You are now logged out');
+    }
+
+    public function login(Request $request)
+    {
+        $incomingFields = $request->validate(
+            [
+                'loginusername' => 'required',
+                'loginpassword' => 'required'
+            ]);
+            // auth returns object and we match data 
+        if( auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']]))
+        {   
+            // session object
+            $request->session()->regenerate(); // user is saved as coockie, sends it on every request
+            // redirect here with following messege
+            return redirect('/')->with('success', 'You have successfully loged in to PopArt Market');
+        }
+        else
+        {
+            return redirect('/')->with('failure', 'Invalid login.');
+        }
+    }
+
     public function register(Request $request)
     {
         $incomingFields = $request->validate(
@@ -23,9 +51,26 @@ class UserController extends Controller
 
             // hashing passwrod with bcrypt
             $incomingFields['password'] = bcrypt($incomingFields['password']) ;
-            
-        // model user
-        User::create($incomingFields);
-        return 'Hello from register function';
+
+        // new user item
+        $user = User::create($incomingFields);
+
+        // login after register
+        auth()->login($user);
+
+        return redirect('/')->with('success','Thank you for joining PopArt Market');
+    }
+
+    public function showCorrectHomepage()
+    {
+        // true or false
+        if(auth()->check())
+        {
+            return view('homepage-feed');
+        }
+        else
+        {
+            return view('homepage');
+        }
     }
 }
