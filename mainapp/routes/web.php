@@ -29,3 +29,4 @@ Route::post('/logout', [UserController::class, 'logout']);
 
 Route::get('/create-product', [ProductController::class, 'showCreateForm']);
 Route::post('/create-product', [ProductController::class, 'storeProduct']);
+Route::get('/product/{product}', [ProductController::class, 'viewSingleProduct']);

@@ -11,4 +11,9 @@ class Product extends Model
 
     protected $fillable = ['title','body','price','phonenumber','location','user_id','category_id'];
 
+    public function user()
+    {
+        // our product belongs to User which is conected with user_id
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

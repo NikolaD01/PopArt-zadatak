@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //
+    public function viewSingleProduct(Product $product)
+    {
+        // $product is product id
+        // laravel we query for us if we match parameter names in route and function
+
+        return view('single-product',['product' => $product]);
+    }
+
     public function storeProduct(Request $request)
     {
         $incomingFields = $request->validate(
