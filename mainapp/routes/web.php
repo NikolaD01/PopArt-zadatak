@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,6 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [UserController::class, 'showCorrectHomepage']);
-
 Route::get('/register', function () {
     return view('register');
 });
@@ -23,3 +23,9 @@ Route::get('/register', function () {
 Route::post('/register-user', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout']);
+
+
+// Products
+
+Route::get('/create-product', [ProductController::class, 'showCreateForm']);
+Route::post('/create-product', [ProductController::class, 'storeProduct']);
