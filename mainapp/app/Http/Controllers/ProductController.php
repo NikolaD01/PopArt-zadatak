@@ -8,6 +8,39 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //
+    public function update(Product $product, Request $request)
+    {
+        $incomingFields = $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+            
+        ]);
+
+        $incomingFields['title'] = strip_tags($incomingFields['title']);
+        $incomingFields['body'] = strip_tags($incomingFields['body']);
+        $incomingFields['location_id'] = 1; // change to one of selectebles locations
+        $incomingFields['category_id'] = 1; // change to selecteble categories
+
+    
+        $product->update($incomingFields);
+
+        return back()->with('success', 'Post sucessfuly updated');
+    }
+
+    public function showEditForm(Product $product)
+    {
+        return view('edit-product', ['product' => $product]);
+    }
+
+    public function delete(Product $product)
+    {
+         // if(auth()->user()->cannot('delete', $product))
+        //  return 'You dont have premmision do delete this product';
+        // }
+        $product->delete();
+        return redirect('/profile/' . auth()->user()->username)->with('success','Product is deleted');
+    }
+
     public function viewSingleProduct(Product $product)
     {
         // $product is product id
@@ -30,7 +63,6 @@ class ProductController extends Controller
 
         $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
-        $incomingFields['price'] = strip_tags($incomingFields['price']);
         $incomingFields['phonenumber'] = strip_tags($incomingFields['phonenumber']);
         $incomingFields['user_id'] = auth()->id();
         // test 

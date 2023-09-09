@@ -28,7 +28,10 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/create-product', [ProductController::class, 'showCreateForm'])->middleware('auth');
 Route::post('/create-product', [ProductController::class, 'storeProduct'])->middleware('auth');
 Route::get('/product/{product}', [ProductController::class, 'viewSingleProduct']);
-
+// only let this if user can delete specific post // midlleware
+Route::delete('/product/{product}', [ProductController::class, 'delete'])->middleware('can:delete,product');
+Route::get('/product/{product}/edit',[ProductController::class, 'showEditForm'])->middleware('can:update,product');
+Route::put('/product/{product}', [ProductController::class, 'Update'])->middleware('can:update,product');
 // Profile routes
 
 Route::get('/profile/{user:username}', [UserController::class, 'profile']);
