@@ -50,7 +50,7 @@
 
       <div class="form-group">
         <label for="product-location" class="text-muted mb-1"><small>Location</small></label>
-        <input  value="{{old('location')}}" name="location" id="product-location" class="form-control" type="text" placeholder="" autocomplete="off" />
+        <input  value="{{old('location_id')}}" name="location_id" id="product-location" class="form-control" type="text" placeholder="" autocomplete="off" />
       </div>
       @error('location')
         <p class="m-0 small alert alert-danger shadow-sm">{{$message}}</p>

@@ -17,9 +17,10 @@ return new class extends Migration
             $table->longText('body');
             $table->integer('price');
             $table->string('phonenumber');
-            $table->string('location');
             $table->timestamps();
-            
+            $table->boolean('status')->default(0);
+            // id from locations table
+            $table->foreignId('location_id')->constrained();
             // id from users table
             $table->foreignId('user_id')->constrained()->onDelte('cascade');
             // id from categorys table

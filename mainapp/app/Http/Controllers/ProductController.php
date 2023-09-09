@@ -25,21 +25,22 @@ class ProductController extends Controller
                 'price' => 'required',
                //'status' => 'required', // add status field where 0 is new and 1 is used
                 'phonenumber' => 'required',
-                'location' => 'required'
+                'location_id' => 'required'
             ]);
 
         $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['price'] = strip_tags($incomingFields['price']);
         $incomingFields['phonenumber'] = strip_tags($incomingFields['phonenumber']);
-        $incomingFields['location'] = strip_tags($incomingFields['location']);
         $incomingFields['user_id'] = auth()->id();
         // test 
+        $incomingFields['location_id'] = 1; // change to one of selectebles locations
         $incomingFields['category_id'] = 1; // change to selecteble categories
 
         Product::create($incomingFields);
 
-        return 'Hey';
+        return redirect('/')->with('success','You created product !');
+
     }
 
     public function showCreateForm()
