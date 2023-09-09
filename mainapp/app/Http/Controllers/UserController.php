@@ -10,13 +10,18 @@ use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
 
+    public function profile(User $user)
+    {
+        return view('profile-products', ['username' => $user->username, 'products' => $user->products()->latest()->get(), 'productCount' => $user->products()->count()]);
+    }
+
     public function logout()
     {
         auth()->logout();
         return redirect('/')->with('success', ' You are now logged out');
     }
 
-    public function login(Request $request)
+    public function login(Request $request, User $user)
     {
         $incomingFields = $request->validate(
             [
@@ -29,7 +34,8 @@ class UserController extends Controller
             // session object
             $request->session()->regenerate(); // user is saved as coockie, sends it on every request
             // redirect here with following messege
-            return redirect('/')->with('success', 'You have successfully loged in to PopArt Market');
+            // return redirect('/')->with('success', 'You have successfully loged in to PopArt Market');
+            return view('profile-products', ['username' => $user->username, 'products' => $user->products()->latest()->get(), 'productCount' => $user->products()->count()]);
         }
         else
         {

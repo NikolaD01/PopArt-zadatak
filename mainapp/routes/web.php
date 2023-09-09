@@ -15,18 +15,20 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', [UserController::class, 'showCorrectHomepage']);
-Route::get('/register', function () {
-    return view('register');
-});
+Route::get('/', [UserController::class, 'showCorrectHomepage'])->name('login');
+Route::get('/register', function () { return view('register'); });
 
-Route::post('/register-user', [UserController::class, 'register']);
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/register-user', [UserController::class, 'register'])->middleware('guest');
+Route::post('/login', [UserController::class, 'login'])->middleware('guest');
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 
-// Products
+// Product routes
 
-Route::get('/create-product', [ProductController::class, 'showCreateForm']);
-Route::post('/create-product', [ProductController::class, 'storeProduct']);
+Route::get('/create-product', [ProductController::class, 'showCreateForm'])->middleware('auth');
+Route::post('/create-product', [ProductController::class, 'storeProduct'])->middleware('auth');
 Route::get('/product/{product}', [ProductController::class, 'viewSingleProduct']);
+
+// Profile routes
+
+Route::get('/profile/{user:username}', [UserController::class, 'profile']);

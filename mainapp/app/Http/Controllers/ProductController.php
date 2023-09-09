@@ -44,6 +44,11 @@ class ProductController extends Controller
 
     public function showCreateForm()
     {
+        // checks if user is logged in, if not send it back.
+        // if(!auth()->check())
+        // {
+        //   return view('/');
+        // } 
         return view('create-product');
     }
 }
