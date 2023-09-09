@@ -27,6 +27,9 @@
             @csrf
             <button class="btn btn-sm btn-secondary">Sign Out</button>
           </form>
+          @if(auth()->user()->isAdmin === 1)
+          <a class="btn btn-sm btn-secondary mr-2" href="/admins-only">Admin Dashboard</a>
+          @endif
         </div>
         @else
         <form action="/login" method="POST" class="mb-0 pt-2 pt-md-0">
