@@ -389,3 +389,9 @@ textarea.tall-textarea {
   font-size: 0.75rem;
 }
  */
+
+ .pagination {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 10px 0;
+}

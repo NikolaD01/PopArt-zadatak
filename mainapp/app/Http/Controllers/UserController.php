@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // all data from form
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -69,15 +70,11 @@ class UserController extends Controller
 
     public function showCorrectHomepage()
     {
-        // true or false
-        if(auth()->check())
-        {
-            return view('homepage-feed');
-        }
-        else
-        {
-            return view('homepage');
-        }
+
+        $products = Product::paginate(5); // 5 products per page
+        return view('homepage-feed', compact('products'));
+
+        
     }
 // Admin -------------- Admin ---------- Admin ----------
     public function adminPage(User $user)

@@ -1,8 +1,18 @@
 <x-layout>
-  <div class="container py-md-5 container--narrow">
-    <div class="text-center">
-      <h2>Hello <strong>{{auth()->user()->username}}</strong>, your feed is empty.</h2>
-      <p class="lead text-muted">Your feed </p>
-    </div>
+  <div class="container py-md-5 container--narrow ">
+    <div class="d-flex justify-content-center">
+        <h2>Hello <strong>{{ auth()->user()  ? auth()->user()->username : 'Guest' }}</strong>, Welcome to PopArt Store.</h2>
+        
+      </div>
+      <div class="list-group">
+        @foreach ($products as $product)
+      
+            <a href="/product/{{$product->id}}"  class="list-group-item list-group-item-action ">{{ $product->title }}</a>
+            <!-- Display other product details here -->
+      
+        @endforeach
+        
+      </div>
+      {{ $products->links() }}
   </div>
 </x-layout>
