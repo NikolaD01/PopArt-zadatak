@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('price');
             $table->string('phonenumber');
             $table->timestamps();
-            $table->boolean('status')->default(0);
+            $table->string('status');
             // id from locations table
             $table->foreignId('location_id')->constrained();
             // id from users table

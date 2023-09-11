@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -45,7 +47,7 @@ class ProductController extends Controller
     {
         // $product is product id
         // laravel we query for us if we match parameter names in route and function
-
+    
         return view('single-product',['product' => $product]);
     }
 
@@ -56,18 +58,19 @@ class ProductController extends Controller
                 'title' => 'required',
                 'body' => 'required',
                 'price' => 'required',
-               //'status' => 'required', // add status field where 0 is new and 1 is used
-                'phonenumber' => 'required',
-                'location_id' => 'required'
+                'status' => 'required',
+                'phonenumber' => 'required'
             ]);
-
+        
+        $categoryId = $request->get('categoryId');
+        $locationId = $request->get('locationId');
         $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['phonenumber'] = strip_tags($incomingFields['phonenumber']);
         $incomingFields['user_id'] = auth()->id();
         // test 
-        $incomingFields['location_id'] = 1; // change to one of selectebles locations
-        $incomingFields['category_id'] = 1; // change to selecteble categories
+        $incomingFields['location_id'] = $locationId;
+        $incomingFields['category_id'] = $categoryId; 
 
         Product::create($incomingFields);
 
@@ -82,6 +85,8 @@ class ProductController extends Controller
         // {
         //   return view('/');
         // } 
-        return view('create-product');
+        $locations = Location::all();
+        $categories= Category::all();
+        return view('create-product', ['categories' => $categories, 'locations' => $locations]);
     }
 }

@@ -24,6 +24,8 @@
     <hr>
     <div class="body-content">
      Price: {{$product->price}}
+     <br>
+     Status: {{$product->status}}
     </div>
     <hr>
     <div class="body-content">
@@ -31,7 +33,11 @@
     </div>
     <hr>
     <div class="body-content">
-     Location: {{$product->location}}
+      Category: {{ $product->category->categoryName }}
+      <br>
+      Location: {{ $product->Location->name}}
     </div>
+
   </div>
+
 </x-layout>
