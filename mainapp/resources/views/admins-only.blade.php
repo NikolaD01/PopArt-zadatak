@@ -1,5 +1,9 @@
 <x-layout>
   <div class="container py-md-5 container--narrow">
+    <div class="text-center">
+      <a href="/categories" class="btn btn-primary text-white">Categories</a>
+      <a href="/locations" class="btn btn-primary text-white">Locations</a>
+    </div>
     @foreach ($users as $user)
       @if(!($user->username === auth()->user()->username))
         <div class="d-flex justify-content-between">

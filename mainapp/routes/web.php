@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,19 @@ use App\Http\Controllers\ProductController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Categories routes
+Route::get('/categories', [CategoryController::class, 'viewPage']);
+Route::post('/create-category', [CategoryController::class, 'store']);
+Route::delete('/categories/{category}', [CategoryController::class, 'delete']);
+
+
+// Locations routes
+
+Route::get('/locations', [LocationController::class, 'viewPage']);
+Route::post('/create-location', [LocationController::class, 'storeLocation']);
+Route::delete('/locations/{location}', [LocationController::class, 'delete']);
+
 
 // Admin Routes
 

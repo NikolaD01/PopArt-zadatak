@@ -84,11 +84,15 @@ class UserController extends Controller
     {
         $users = User::all();
         $user = auth()->user();
+        if(!isset($user->isAdmin))
+        {
+            return redirect('/')->with('failure','Access denied, you are not an administrator');;
+        }
         if($user->isAdmin === 1)
         {
             return view('admins-only', ['users' => $users]);
         }
-        return redirect('/')->with('failure','Access denied, you are not an administrator');;
+            return redirect('/')->with('failure','Access denied, you are not an administrator');;
         // return 'You are admmin';
     }
 
