@@ -40,6 +40,7 @@ Route::put('/edit-user/{user}', [UserController::class, 'update']);
 // User Routes
 Route::get('/', [UserController::class, 'showCorrectHomepage'])->name('login');
 Route::get('/register', function () { return view('register'); });
+Route::get('/profile/{user:username}', [UserController::class, 'profile']);
 
 Route::post('/register-user', [UserController::class, 'register'])->middleware('guest');
 Route::post('/login', [UserController::class, 'login'])->middleware('guest');
@@ -55,6 +56,6 @@ Route::get('/product/{product}', [ProductController::class, 'viewSingleProduct']
 Route::delete('/product/{product}', [ProductController::class, 'delete'])->middleware('can:delete,product');
 Route::get('/product/{product}/edit',[ProductController::class, 'showEditForm'])->middleware('can:update,product');
 Route::put('/product/{product}', [ProductController::class, 'update'])->middleware('can:update,product');
-// Profile routes
+Route::get('/search',[ProductController::class, 'search']);
 
-Route::get('/profile/{user:username}', [UserController::class, 'profile']);
+

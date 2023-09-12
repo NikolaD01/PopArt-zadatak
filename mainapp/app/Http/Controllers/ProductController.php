@@ -10,6 +10,24 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //
+    public function search(Request $request)
+    {
+        $term = $request->input('term');
+  
+
+        $products= Product::where('title', 'like', "%$term%")
+            ->orWhere('body', 'like', "%$term%")
+            ->orWhere('price', 'like', "%$term%")
+            ->orWhereHas('location', function ($query) use ($term) {
+                $query->where('name', 'like', "%$term%");
+            })
+            ->orWhereHas('category', function ($query) use ($term) {
+                $query->where('categoryName', 'like', "%$term%");
+            })
+            ->paginate(5); // 5 products per page
+            return view('homepage-feed', compact('products'));
+    }
+
     public function update(Product $product, Request $request)
     {
         $incomingFields = $request->validate([
@@ -20,9 +38,8 @@ class ProductController extends Controller
 
         $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
-        $incomingFields['location_id'] = 1; // change to one of selectebles locations
-        $incomingFields['category_id'] = 1; // change to selecteble categories
-
+        $incomingFields['location_id'] = $locationId;
+        $incomingFields['category_id'] = $categoryId;
     
         $product->update($incomingFields);
 
