@@ -21,7 +21,7 @@ use App\Http\Controllers\LocationController;
 Route::get('/categories', [CategoryController::class, 'viewPage']);
 Route::post('/create-category', [CategoryController::class, 'store']);
 Route::delete('/categories/{category}', [CategoryController::class, 'delete']);
-
+Route::get('/categories/{category}', [CategoryController::class, 'showProducts']);
 
 // Locations routes
 
@@ -57,5 +57,4 @@ Route::delete('/product/{product}', [ProductController::class, 'delete'])->middl
 Route::get('/product/{product}/edit',[ProductController::class, 'showEditForm'])->middleware('can:update,product');
 Route::put('/product/{product}', [ProductController::class, 'update'])->middleware('can:update,product');
 Route::get('/search',[ProductController::class, 'search']);
-
 

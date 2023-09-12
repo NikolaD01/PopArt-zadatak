@@ -32,7 +32,7 @@
       @foreach ($categories as $category)
         <h4 class="list-group-item list-group-item-action d-flex justify-content-around">
           <span>ID:<strong> {{$category['id']}}</strong></span>
-          <span>Name:<strong> {{$category['categoryName']}}</strong></span>
+          <span>Name:<strong> <a href="categories/{{$category->id}}">{{$category['categoryName']}}</a></strong></span>
           <form class="delete-post-form d-inline" action="/categories/{{$category->id}}" method="POST">
             @csrf
             @method('DELETE')
