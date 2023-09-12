@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Models\Category;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-// use Illuminate\Support\Facades\View;
+ use Illuminate\Support\Facades\View;
 // use View;
 
 
@@ -27,11 +27,10 @@ class AppServiceProvider extends ServiceProvider
         //
         Paginator::useBootstrap();
         
-        //$categories = Category::all();
-        //View::share('categories', $categories);
-        /* View::composer('*', function ($view) {
-        $categories = Category::all(); // Dohvatite sve kategorije iz baze podataka
-        $view->with('categories', $categories); 
-    }); */ 
+        
+        View::composer('*', function ($view) {
+        $sidebarCategories = Category::with('subcategories')->whereNull('parent_id')->get();
+        $view->with('sidebarCategories', $sidebarCategories);  
+         }); 
     }
 }

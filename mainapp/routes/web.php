@@ -21,8 +21,8 @@ use App\Http\Controllers\LocationController;
 Route::get('/categories', [CategoryController::class, 'viewPage']);
 Route::post('/create-category', [CategoryController::class, 'store']);
 Route::delete('/categories/{category}', [CategoryController::class, 'delete']);
-Route::get('/categories/{category}', [CategoryController::class, 'showProducts']);
-
+Route::get('/categories/{categoryId}', [CategoryController::class, 'showProducts']);
+Route::get('/category/{id}', [CategoryController::class, 'show'])->name('category.show');
 // Locations routes
 
 Route::get('/locations', [LocationController::class, 'viewPage']);

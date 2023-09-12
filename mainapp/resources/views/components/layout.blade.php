@@ -80,35 +80,12 @@
           <button type="submit" class="btn btn-primary btn-sm ml-2">Search</button>
       </form>
     </div>
+  <div class="wrapper">
 
-    {{-- <aside class="sidebar">
-      <nav class="nav flex-column">
-        <!-- Dodajte link za sve kategorije -->
-        <a class="nav-link" href="/categories">Sve Kategorije</a>
-        
-        <!-- Iterirajte kroz kategorije i podkategorije -->
-        @foreach($categories as $category)
-          <a class="nav-link" href="/categories/{{ $category->id }}">{{ $category->name }}</a>
-          
-          <!-- Prikaz podkategorija, ako postoje -->
-          @if(count($category->subcategories) > 0)
-            <ul class="nav flex-column ml-3"> <!-- Dodajte Bootstrap klasu za podmeni -->
-              @foreach($category->subcategories as $subcategory)
-                <li class="nav-item">
-                  <a class="nav-link" href="/categories/{{ $subcategory->id }}">{{ $subcategory->name }}</a>
-                </li>
-              @endforeach
-            </ul>
-          @endif
-        @endforeach
-      </nav>
-    </aside>
-     --}}
-    
-    
+    @include('sidebar')
     
     {{$slot}}
-  
+  </div>
 
     <!-- footer begins -->
     <footer class="border-top text-center small text-muted py-3">

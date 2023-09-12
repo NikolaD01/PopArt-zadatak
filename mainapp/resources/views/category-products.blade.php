@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container py-md-5 container--narrow ">
         <div class="d-flex justify-content-center">
-            <h1>Products in {{ $category->categoryName }}</h1>
+            <h1>Products in {{ $mainCategory->categoryName }}</h1>
         </div>
         @if ($products->isEmpty())
             <div class="list-group">

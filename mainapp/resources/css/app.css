@@ -395,3 +395,61 @@ textarea.tall-textarea {
   justify-content: center;
   margin: 10px 0 10px 0;
 }
+
+/* Custom CSS for the sidebar */
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: all 0.3s;
+  background-color: #343a40; /* Sidebar background color */
+}
+
+#sidebar h1{
+
+  margin-top: 25%;
+
+}
+
+/* Add a media query to hide the sidebar below 1206px width */
+@media (max-width: 1250px) {
+  #sidebar {
+      display: none;
+  }
+
+  #content {
+      margin-left: 0;
+  }
+}
+
+/* Rest of your CSS styles for larger screens */
+#sidebar.active {
+  min-width: 80px;
+  max-width: 80px;
+}
+
+
+
+#sidebar ul li {
+  padding: 5px;
+  padding-left: 45%;
+}
+
+#sidebar ul li a{
+  color: white;
+}
+
+#sidebar hr {
+  border-color: white;
+}
+/* Custom CSS for the subcategories */
+
+/* Custom CSS for the page content */
+#content {
+  margin-left: 250px;
+  padding: 15px;
+}

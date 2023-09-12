@@ -36,6 +36,7 @@ class UserController extends Controller
             $request->session()->regenerate(); // user is saved as coockie, sends it on every request
             // redirect here with following messege
             // return redirect('/')->with('success', 'You have successfully loged in to PopArt Market');
+
             return view('profile-products', ['username' => $user->username, 'products' => $user->products()->latest()->get(), 'productCount' => $user->products()->count()]);
         }
         else

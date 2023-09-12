@@ -51,12 +51,17 @@ class CategoryController extends Controller
     }
    
 
-    public function showProducts(Category $category)
+    public function showProducts($categoryId)
     {
-        // Retrieve products in the specified category
-        $products = Product::where('category_id', $category->id)->get();
+        $mainCategory = Category::find($categoryId);
 
-        return view('category-products', compact('category', 'products'));
-    }    
+        if (!$mainCategory) {
+            abort(404); // Category not found
+        }
+
+        $products = $mainCategory->allProducts();
+        return view('category-products', compact('mainCategory', 'products'));
+    } 
+    
 }
 
