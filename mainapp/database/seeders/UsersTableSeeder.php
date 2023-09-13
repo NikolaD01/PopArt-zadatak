@@ -37,5 +37,17 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
+
+         // Insert the admin user
+        DB::table('users')->insert([
+            'username' => 'admin',
+            'email' => 'admin@example.com', // Change this email address as needed
+            'password' => bcrypt('admin123'), // Hashed password
+            'isAdmin' => true, // Set as admin
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }
