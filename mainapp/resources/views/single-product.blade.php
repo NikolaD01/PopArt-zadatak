@@ -22,6 +22,9 @@
       {{$product->body}}
     </div>
     <hr>
+    @foreach ($product->images as $image)
+      <img src="{{ asset('storage/' . $image->image_path) }}" alt="Product Image">    @endforeach
+    <hr>
     <div class="body-content">
      Price: {{$product->price}}
      <br>

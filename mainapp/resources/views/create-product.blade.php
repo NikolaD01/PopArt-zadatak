@@ -1,6 +1,6 @@
 <x-layout>
   <div class="container py-md-5 container--narrow">
-    <form action="/create-product" method="POST">
+    <form action="/create-product" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="form-group">
         <label for="product-title" class="text-muted mb-1"><small>Title</small></label>
@@ -18,6 +18,14 @@
         <p class="m-0 small alert alert-danger shadow-sm">{{$message}}</p>
       @enderror
 
+      <div class="form-group">
+        <label for="product-image" class="text-muted mb-1"><small>Image</small></label>
+        <input name="image" id="product-image" class="form-control-file" type="file" accept="image/*" />
+        @error('image')
+          <p class="m-0 small alert alert-danger shadow-sm">{{$message}}</p>
+        @enderror
+      </div>
+     
       <div class="form-group">
         <label for="product-price" class="text-muted mb-1"><small>Price</small></label>
         <input  value="{{old('price')}}"  name="price" id="product-price" class="form-control form-control " type="number" placeholder="" autocomplete="off" />

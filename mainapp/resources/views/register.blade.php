@@ -1,7 +1,7 @@
 <x-layout>
   <div class="container py-md-12">
     <div class="col-lg-12 pl-lg-5 pb-3 py-lg-5">
-      <form action="/register-user" method="POST" id="registration-form">
+      <form action="/register-user" method="POST" id="registration-form" >
         @csrf
         <div class="form-group">
           <label for="username-register" class="text-muted mb-1"><small>Username</small></label>

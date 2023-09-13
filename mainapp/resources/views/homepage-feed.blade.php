@@ -8,7 +8,6 @@
         @foreach ($products as $product)
       
             <a href="/product/{{$product->id}}"  class="list-group-item list-group-item-action ">{{ $product->title }}</a>
-            <!-- Display other product details here -->
       
         @endforeach
         

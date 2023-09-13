@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,5 +25,9 @@ class Product extends Model
     public function location()
     {
         return $this->belongsTo(Location::class, 'location_id');
+    }
+    public function images()
+    {
+        return $this->hasMany(Image::class);
     }
 }

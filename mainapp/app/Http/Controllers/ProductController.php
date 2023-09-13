@@ -31,15 +31,36 @@ class ProductController extends Controller
     public function update(Product $product, Request $request)
     {
         $incomingFields = $request->validate([
-            'title' => 'required',
-            'body' => 'required'
+            'title' => 'string|max:255',
+            'body' => 'string',
+            'price' => 'numeric|min:0', 
+            'status' => 'in:New,Used',
+            'phonenumber' => 'phone_number', // Use the custom rule 'phone_number'                
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:width=300,height=300'            
             
         ]);
 
+        $categoryId = $request->get('categoryId');
+        $locationId = $request->get('locationId');
         $incomingFields['title'] = strip_tags($incomingFields['title']);
         $incomingFields['body'] = strip_tags($incomingFields['body']);
+        $incomingFields['phonenumber'] = strip_tags($incomingFields['phonenumber']);
         $incomingFields['location_id'] = $locationId;
-        $incomingFields['category_id'] = $categoryId;
+        $incomingFields['category_id'] = $categoryId; 
+
+        if ($request->hasFile('image'))
+        {
+
+            $newImage = $request->file('image')->store('images', 'public');
+
+            if ($product->image_path) {
+                Storage::disk('public')->delete($product->image_path);
+            }
+
+            $product->update(['image_path' => $newImage]);
+        }
+
+
     
         $product->update($incomingFields);
 
@@ -48,22 +69,19 @@ class ProductController extends Controller
 
     public function showEditForm(Product $product)
     {
-        return view('edit-product', ['product' => $product]);
+        $locations = Location::all();
+        $categories= Category::all();
+        return view('edit-product', ['product' => $product,'categories' => $categories, 'locations' => $locations]);
     }
 
     public function delete(Product $product)
     {
-         // if(auth()->user()->cannot('delete', $product))
-        //  return 'You dont have premmision do delete this product';
-        // }
         $product->delete();
         return redirect('/profile/' . auth()->user()->username)->with('success','Product is deleted');
     }
 
     public function viewSingleProduct(Product $product)
     {
-        // $product is product id
-        // laravel we query for us if we match parameter names in route and function
     
         return view('single-product',['product' => $product]);
     }
@@ -72,12 +90,13 @@ class ProductController extends Controller
     {
         $incomingFields = $request->validate(
             [
-                'title' => 'required',
-                'body' => 'required',
-                'price' => 'required',
-                'status' => 'required',
-                'phonenumber' => 'required'
-            ]);
+                'title' => 'required|string|max:255',
+                'body' => 'required|string',
+                'price' => 'required|numeric|min:0', 
+                'status' => 'required|in:New,Used',
+                'phonenumber' => 'required|phone_number', // Use the custom rule 'phone_number'                
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:width=300,height=300'            
+                ]);
         
         $categoryId = $request->get('categoryId');
         $locationId = $request->get('locationId');
@@ -85,23 +104,24 @@ class ProductController extends Controller
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['phonenumber'] = strip_tags($incomingFields['phonenumber']);
         $incomingFields['user_id'] = auth()->id();
-        // test 
         $incomingFields['location_id'] = $locationId;
         $incomingFields['category_id'] = $categoryId; 
 
-        Product::create($incomingFields);
+        $product = Product::create($incomingFields);
+        
+        $imagePath = $request->file('image')->store('images', 'public');
 
-        return redirect('/')->with('success','You created product !');
 
+        $product->images()->create(['image_path' => $imagePath]);
+
+       
+        return redirect('/')->with('success', 'You created product!');
+        
     }
 
     public function showCreateForm()
     {
-        // checks if user is logged in, if not send it back.
-        // if(!auth()->check())
-        // {
-        //   return view('/');
-        // } 
+
         $locations = Location::all();
         $categories= Category::all();
         return view('create-product', ['categories' => $categories, 'locations' => $locations]);
