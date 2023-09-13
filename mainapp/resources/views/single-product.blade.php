@@ -40,7 +40,29 @@
       <br>
       Location: {{ $product->Location->name}}
     </div>
-
-  </div>
-
+      <div class="mt-5">
+        <h3>Comments</h3>
+            
+        <ul class="list-group">
+        @foreach ($product->comments as $comment)
+          <li class="list-group-item">
+              <strong>{{$comment->user->username}}:</strong> {{$comment->content}}
+            </li>
+        @endforeach
+        </ul>
+      
+        @auth
+        <form class="mt-3" action="/product/{{$product->id}}/comments" method="POST">
+          @csrf
+          <div class="form-group">
+            <label for="comment">Add a Comment:</label>
+            <textarea class="form-control" id="comment" name="content" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Comment</button>
+        </form>
+        @else
+          <p class="mt-3">Please <strong>login</strong> to leave a comment.</p>
+        @endauth
+      </div>
+    </div>
 </x-layout>

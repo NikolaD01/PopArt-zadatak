@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Location;
@@ -126,4 +127,23 @@ class ProductController extends Controller
         $categories= Category::all();
         return view('create-product', ['categories' => $categories, 'locations' => $locations]);
     }
+    public function storeComment(Request $request, Product $product)
+    {
+        $request->validate([
+            'content' => 'required|string|max:255', 
+        ]);
+
+        $comment = new Comment([
+            'content' => $request->input('content'),
+        ]);
+
+        $comment->product()->associate($product);
+        $comment->user()->associate(auth()->user());
+
+        $comment->save();
+
+        return back()->with('success', 'Comment added successfully!');
+    }
+
+    
 }

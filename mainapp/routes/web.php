@@ -56,4 +56,4 @@ Route::delete('/product/{product}', [ProductController::class, 'delete'])->middl
 Route::get('/product/{product}/edit',[ProductController::class, 'showEditForm'])->middleware('can:update,product');
 Route::put('/product/{product}', [ProductController::class, 'update'])->middleware('can:update,product');
 Route::get('/search',[ProductController::class, 'search']);
-
+Route::post('/product/{product}/comments', [ProductController::class, 'storeComment']);
