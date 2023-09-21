@@ -1,9 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LocationController;
 
 /*
@@ -16,6 +19,18 @@ use App\Http\Controllers\LocationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Stripe 
+Route::get('/', [StripeController::class, 'index']);
+Route::post('/checkout', [StripeController::class, 'checkout']);
+Route::get('/success', [StripeController::class, 'success']);
+
+
+//  Cart 
+Route::get('/cart', [CartController::class, 'viewPage'])->name('cart');
+Route::post('/cart/add/{product}', [CartController::class, 'addProduct']);
+Route::delete('/cart/delete/{product}', [CartController::class, 'deleteProduct']);
+
 
 // Categories routes
 Route::get('/categories', [CategoryController::class, 'viewPage']);
@@ -57,3 +72,5 @@ Route::get('/product/{product}/edit',[ProductController::class, 'showEditForm'])
 Route::put('/product/{product}', [ProductController::class, 'update'])->middleware('can:update,product');
 Route::get('/search',[ProductController::class, 'search']);
 Route::post('/product/{product}/comments', [ProductController::class, 'storeComment']);
+
+

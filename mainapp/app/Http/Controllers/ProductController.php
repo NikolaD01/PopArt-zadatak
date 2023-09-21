@@ -37,8 +37,7 @@ class ProductController extends Controller
             'price' => 'numeric|min:0', 
             'status' => 'in:New,Used',
             'phonenumber' => 'phone_number', // Use the custom rule 'phone_number'                
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:width=300,height=300'            
-            
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:max_width=300,max_height=300'            
         ]);
 
         $categoryId = $request->get('categoryId');
@@ -96,7 +95,7 @@ class ProductController extends Controller
                 'price' => 'required|numeric|min:0', 
                 'status' => 'required|in:New,Used',
                 'phonenumber' => 'required|phone_number', // Use the custom rule 'phone_number'                
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:width=300,height=300'            
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048|dimensions:max_width=300,max_height=300'            
                 ]);
         
         $categoryId = $request->get('categoryId');

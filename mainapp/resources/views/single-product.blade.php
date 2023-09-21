@@ -23,7 +23,8 @@
     </div>
     <hr>
     @foreach ($product->images as $image)
-      <img src="{{ asset('storage/' . $image->image_path) }}" alt="Product Image">    @endforeach
+      <img src="{{ asset('storage/' . $image->image_path) }}" alt="Product Image">
+    @endforeach    
     <hr>
     <div class="body-content">
      Price: {{$product->price}}
@@ -40,6 +41,14 @@
       <br>
       Location: {{ $product->Location->name}}
     </div>
+    @if(auth()->user())
+    <div class="body-content text-center">
+      <form action="/cart/add/{{$product->id}}" method="POST">
+        @csrf
+        <button class="btn btn-primary">Add to Cart</button>
+      </form>
+    </div>
+    @endif
       <div class="mt-5">
         <h3>Comments</h3>
             

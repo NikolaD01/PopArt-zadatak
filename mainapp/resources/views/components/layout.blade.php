@@ -50,9 +50,10 @@
           </form>
         @endauth
       </div>
+      
     </header>
     <!-- header ends here -->
-
+    
     @if(session()->has('success'))
       <div class='container container--narrow'>
         <div class="alert alert-success text-center">
@@ -87,6 +88,11 @@
  
 
     <!-- footer begins -->
+      @if(auth()->user())
+      <div class="d-flex justify-content-center flex-row my-3 py-3 my-md-0">
+       <a href="/cart" class="btn btn-primary">Cart</a>
+      </div>
+      @endif
     <footer class="border-top text-center small text-muted py-3">
       <p class="m-0">Copyright &copy; {{date('Y')}}<a href="/" class="text-muted">Popart Store</a>. All rights reserved.</p>
     </footer>

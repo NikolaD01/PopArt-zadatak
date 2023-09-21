@@ -13,5 +13,7 @@
         
       </div>
       {{ $products->links() }}
+
+      
   </div>
 </x-layout>
