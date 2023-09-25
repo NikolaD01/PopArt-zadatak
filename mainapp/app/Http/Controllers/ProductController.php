@@ -128,13 +128,17 @@ class ProductController extends Controller
     }
     public function storeComment(Request $request, Product $product)
     {
-        $request->validate([
-            'content' => 'required|string|max:255', 
-        ]);
+        $request->validate(
+            [
+                'content' => 'required|string|max:255', 
+            ]
+        );
 
-        $comment = new Comment([
-            'content' => $request->input('content'),
-        ]);
+        $comment = new Comment(
+            [
+                'content' => $request->input('content'),
+            ]
+        );
 
         $comment->product()->associate($product);
         $comment->user()->associate(auth()->user());

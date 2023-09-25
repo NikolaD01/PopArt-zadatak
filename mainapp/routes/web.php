@@ -21,7 +21,6 @@ use App\Http\Controllers\LocationController;
 */
 
 // Stripe 
-Route::get('/', [StripeController::class, 'index']);
 Route::post('/checkout', [StripeController::class, 'checkout']);
 Route::get('/success', [StripeController::class, 'success']);
 

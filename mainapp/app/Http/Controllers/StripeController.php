@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class StripeController extends Controller
 {
     //
-    public function index()
-    {}
-
-    public function checkout()
+    public function checkout(Request $request)
     {
+        // Get the total price from the request
+        $totalPrice = $request->input('total_price');
+
         Stripe::setApiKey(env('STRIPE_SK'));
         $session = \Stripe\Checkout\Session::create(
             [
@@ -23,7 +23,7 @@ class StripeController extends Controller
                         [
                             'currency' => 'gbp',
                             'product_data' => ['name' => 'send me money'],
-                            'unit_amount' => 500, //$5.00
+                            'unit_amount' => $totalPrice * 100, // Convert to cents
                         ],
                         'quantity' =>1,
                     ],
@@ -38,6 +38,6 @@ class StripeController extends Controller
 
     public function success()
     {
-        return view('/');
+        return view('/')->with('success', 'Product paid successfully!');
     }
 }
