@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,11 @@ use App\Http\Controllers\LocationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+Route::get('/wishlist', [WishlistController::class, 'viewPage']);
+Route::post('/wishlist/add/{product}', [WishlistController::class, 'add']);
+Route::delete('/wishlist/remove/{product}', [WishlistController::class, 'remove']);
 
 // Stripe 
 Route::post('/checkout', [StripeController::class, 'checkout']);

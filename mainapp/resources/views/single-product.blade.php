@@ -42,10 +42,14 @@
       Location: {{ $product->Location->name}}
     </div>
     @if(auth()->user())
-    <div class="body-content text-center">
-      <form action="/cart/add/{{$product->id}}" method="POST">
+    <div class="d-flex justify-content-center">
+      <form class='mx-3' action="/cart/add/{{$product->id}}" method="POST">
         @csrf
         <button class="btn btn-primary">Add to Cart</button>
+      </form>
+      <form action="/wishlist/add/{{$product->id}}" method="POST">
+        @csrf
+        <button class="btn btn-primary">Add to Whislist</button>
       </form>
     </div>
     @endif
